@@ -10,21 +10,21 @@ import org.apache.commons.lang3.StringUtils;
 import java.math.BigDecimal;
 
 import com.project.model.Stock;
-import com.project.model.User;
+import com.project.model.Student;
 import com.project.model.Wallet;
 import com.project.service.StockService;
-import com.project.service.UserService;
+import com.project.service.StudentService;
 
 @Component
 public class UniValidator {
 
     @Autowired
-    private UserService userService;
+    private StudentService userService;
 
     @Autowired
     private StockService stockService;
 
-    public boolean validateBuyStockData(HttpServletRequest request, User user, Stock stock) {
+    public boolean validateBuyStockData(HttpServletRequest request, Student user, Stock stock) {
         setBuyAttributes(request, stock);
         if (isEmpty(request.getParameter("amount"))) {
             setError(request, "No value entered!");

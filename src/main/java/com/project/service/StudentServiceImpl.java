@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-import com.project.model.User;
+import com.project.model.Student;
 import com.project.dao.UserRepository;
 import com.project.model.Stock;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public User getCurrentUser() {
-        User user = userRepository.findByUsername(getUserName());
+    public Student getCurrentUser() {
+        Student user = userRepository.findByUsername(getUserName());
         if (user == null) {
             throw new SecurityException();
         }
@@ -32,42 +32,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
+    public void save(Student user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
     @Override
-    public void update(User user) {
+    public void update(Student user) {
         userRepository.save(user);
     }
 
     @Override
-    public void updatePassword(User user) {
+    public void updatePassword(Student user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     }
 
     @Override
-    public void updateMoney(User user, Stock stock, Integer amount) {
+    public void updateMoney(Student user, Stock stock, Integer amount) {
         user.setMoney(user.getMoney().subtract(stock.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(amount))));
         update(user);
     }
 
     @Override
-    public void addMoney(Stock stock, Integer amountToSell, User user) {
+    public void addMoney(Stock stock, Integer amountToSell, Student user) {
         BigDecimal moneyToAdd = stock.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(amountToSell));
         user.setMoney(user.getMoney().add(moneyToAdd));
     }
 
     @Override
-    public void updateSurnameAndMoney(User user, User userForm) {
+    public void updateSurnameAndMoney(Student user, Student userForm) {
         user.setSurname(userForm.getSurname());
         user.setMoney(userForm.getMoney());
         update(user);
     }
 
     @Override
-    public void updateAllValues(User user, User userForm) {
+    public void updateAllValues(Student user, Student userForm) {
         user.setUsername(userForm.getUsername());
         user.setSurname(userForm.getSurname());
         user.setMoney(userForm.getMoney());
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateProfile(User user, User userForm) {
+    public void updateProfile(Student user, Student userForm) {
         if (!user.getUsername().equals(userForm.getUsername()) || !userForm.getPassword().isEmpty()) {
             updateAllValues(user, userForm);
         } else {

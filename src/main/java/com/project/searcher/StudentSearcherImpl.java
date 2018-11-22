@@ -4,16 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.dao.UserRepository;
-import com.project.model.User;
+import com.project.model.Student;
 
 @Service
-public class UserSearcherImpl implements UserSearcher {
+public class StudentSearcherImpl implements StudentSearcher {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public User findByUsername(String username) {
+    public Student findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 }

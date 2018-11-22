@@ -8,27 +8,27 @@ import org.springframework.validation.Validator;
 
 import java.math.BigDecimal;
 
-import com.project.model.User;
-import com.project.searcher.UserSearcher;
-import com.project.service.UserService;
+import com.project.model.Student;
+import com.project.searcher.StudentSearcher;
+import com.project.service.StudentService;
 
 @Component
 public class UserEditValidator implements Validator {
 
     @Autowired
-    private UserService userService;
+    private StudentService userService;
 
     @Autowired
-    private UserSearcher userSearcher;
+    private StudentSearcher userSearcher;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+        return Student.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        User user = (User) o;
+        Student user = (Student) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
         if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {

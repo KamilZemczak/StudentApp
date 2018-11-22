@@ -16,8 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,11 +37,11 @@ public class User implements Serializable {
     @JoinTable(name = "wallet", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "id"))
     private List<Wallet> userWallet;
 
-    public User() {
+    public Student() {
 
     }
 
-    public User(String username, String name, String surname, String password, BigDecimal money) {
+    public Student(String username, String name, String surname, String password, BigDecimal money) {
         this.username = username;
         this.name = name;
         this.surname = surname;
