@@ -42,25 +42,25 @@ public class UserValidator implements Validator {
             errors.rejectValue("lastName", "Letter.userForm.name");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "NotEmpty");
-        if (user.getSurname().length() < 3 || user.getName().length() > 26) {
-            errors.rejectValue("surname", "Length.userForm.surname");
-        }
-        if (!user.getSurname().isEmpty() && !Character.isUpperCase(user.getSurname().charAt(0))) {
-            errors.rejectValue("surname", "Letter.userForm.surname");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
-        }
-
-        if (user.getPasswordConfirm() != null && !user.getPasswordConfirm().equals(user.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
-        }
-
-        if (user.getMoney() != null && user.getMoney().compareTo(BigDecimal.ZERO) < 0) {
-            errors.rejectValue("money", "Negative.userForm.money");
-        }
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "NotEmpty");
+//        if (user.getSurname().length() < 3 || user.getName().length() > 26) {
+//            errors.rejectValue("surname", "Length.userForm.surname");
+//        }
+//        if (!user.getSurname().isEmpty() && !Character.isUpperCase(user.getSurname().charAt(0))) {
+//            errors.rejectValue("surname", "Letter.userForm.surname");
+//        }
+//
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
+//        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+//            errors.rejectValue("password", "Size.userForm.password");
+//        }
+//
+//        if (user.getPasswordConfirm() != null && !user.getPasswordConfirm().equals(user.getPassword())) {
+//            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+//        }
+//
+//        if (user.getMoney() != null && user.getMoney().compareTo(BigDecimal.ZERO) < 0) {
+//            errors.rejectValue("money", "Negative.userForm.money");
+//        }
     }
 }

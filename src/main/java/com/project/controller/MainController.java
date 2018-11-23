@@ -10,7 +10,6 @@ public class MainController {
 
     @GetMapping("/")
     public String home(HttpServletRequest request) {
-       
         return "index";
     }
 }

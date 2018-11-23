@@ -23,7 +23,7 @@ public class GradeServiceImpl implements GradeService {
     }
 
     private Grade createNew(final Grade grade, Integer studentId) {
-        final Student student = studentRepository.findById(studentId);
+        final Student student = studentRepository.getOne(studentId);
         final Grade result = new Grade();
         result.setStudent(student);
         result.setSubject(grade.getSubject());
