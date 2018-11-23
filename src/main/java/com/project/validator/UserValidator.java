@@ -24,22 +24,22 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        Student user = (Student) o;
+        Student student = (Student) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.username");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "notEmpty");
+        if (student.getFirstName().length() < 3 || student.getFirstName().length() > 32) {
+            errors.rejectValue("firstName", "size.student.firstName");
         }
-        if (userSearcher.findByUsername(user.getUsername()) != null) {
-            errors.rejectValue("username", "Duplicate.userForm.username");
+        if (student.getFirstName().matches("[A-Z][a-zA-Z]*")) {
+            errors.rejectValue("firstName", "form.student.firstName");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
-        if (user.getName().length() < 3 || user.getName().length() > 26) {
-            errors.rejectValue("name", "Length.userForm.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "notEmpty");
+        if (student.getLastName().length() < 3 || student.getLastName().length() > 32) {
+            errors.rejectValue("lastName", "Length.userForm.name"); //todo
         }
-        if (!user.getName().isEmpty() && !Character.isUpperCase(user.getName().charAt(0))) {
-            errors.rejectValue("name", "Letter.userForm.name");
+        if (student.getLastName().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
+            errors.rejectValue("lastName", "Letter.userForm.name");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "NotEmpty");
