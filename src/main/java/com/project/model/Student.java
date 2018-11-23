@@ -12,33 +12,51 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
-@Entity(name="student")
+@Entity(name = "student")
 public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column
+
+    @NotNull
+    @Size(min = 2, message = "Name should have atleast 2 characters")
     private String firstName;
-    @Column
+
+    @NotNull
+    @Size(min = 2, message = "Last name should have atleast 2 characters")
     private String lastName;
-    @Column
+
+    @NotNull
+    @Size(min = 2, message = "Name should have atleast 2 characters")
     private String className;
-    @Column
+
+    @NotNull
     private String streetAdress;
-    @Column
+
+    @NotNull
     private Integer houseNumber;
-    @Column
+
+    @NotNull
     private String city;
-    @Column
+
+    @NotNull
     private String zipCode;
-    @Column
+
+    @NotNull
     private Integer pesel;
-    @Column
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Past
     private Date dateOfBirth;
-    @Column
+
     private Boolean dyslexia;
+
     @OneToMany
     @JoinTable(name = "grade", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "id"))
     private List<Grade> studentGrade;

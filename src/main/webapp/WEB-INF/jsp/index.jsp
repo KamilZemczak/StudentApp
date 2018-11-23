@@ -12,11 +12,12 @@
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache">
         <meta http-equiv="Expires" content="Sat, 01 Dec 2001, 00:00:00 GMT">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Student App</title>
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href=static/css"/datepicker.css>
         <style>
             .jumbotron{
                 background-color:#262626;
@@ -25,6 +26,11 @@
                 padding-bottom: 20px;
             }
         </style>
+        <script>
+            $(function () {
+                $("#datepicker").datepicker();
+            });
+        </script>
     </head>
     <body>
 
@@ -86,7 +92,7 @@
                 </c:when>
                 <c:when test="${mode == 'ADD_STUDENT'}">
                     <div class="container text-center">
-                        <h3>Add student</h3>
+                        <h3>ADD STUDENT</h3>
                         <hr>
                         <form class="form-horizontal" method="POST" action="add-student">
 
@@ -118,17 +124,17 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">House number:</label>
                                 <div class="col-md-7">
-                                    <input type="number" class="form-control" name="houseNumber" max="25" min="0"  value="${student.houseNumber}"/>
+                                    <input type="text" class="form-control" name="houseNumber"  value="${student.houseNumber}"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">City</label>
+                                <label class="control-label col-md-3">City:</label>
                                 <div class="col-md-7">
                                     <input type="text" class="form-control" name="city" value="${student.city}"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Zip code:</label>
+                                <label class="control-label col-md-3">ZIP code:</label>
                                 <div class="col-md-7">
                                     <input type="text" class="form-control" name="zipCode" value="${student.zipCode}"/>
                                 </div>
@@ -142,9 +148,9 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Date of birth:</label>
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control" name="dateOfBirth" value="${student.dateofBrith}"/>
+                                    <input class="datepicker" type="text" class="form-control" data-date-format="dd-mm-yyyy" name="dateOfBirth" id="datepicker" value="${student.dateofBrith}"/>
                                 </div>
-                            </div>
+                            </div>                              
                             <div class="form-group">
                                 <label class="control-label col-md-3">Dyslexia:</label>
                                 <div class="col-md-7">
@@ -170,6 +176,9 @@
 
             <script src="static/js/jquery-1.11.1.min.js"></script>
             <script src="static/js/bootstrap.min.js"></script>
-
+            <script src="static/js/bootstrap-datepicker.js"></script>
+            <script>$(function () {
+                $('.datepicker').datepicker();
+            });</script>
     </body>
 </html>
