@@ -1,9 +1,5 @@
 package com.project.model;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,9 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 
 @Entity(name = "student")
 public class Student implements Serializable {
@@ -23,40 +21,27 @@ public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @NotNull
-    @Size(min = 2, message = "Name should have atleast 2 characters")
+    @Column
     private String firstName;
-
-    @NotNull
-    @Size(min = 2, message = "Last name should have atleast 2 characters")
+    @Column
     private String lastName;
-
-    @NotNull
-    @Size(min = 2, message = "Name should have atleast 2 characters")
+    @Column
     private String className;
-
-    @NotNull
+    @Column
     private String streetAdress;
-
-    @NotNull
+    @Column
     private Integer houseNumber;
-
-    @NotNull
+    @Column
     private String city;
-
-    @NotNull
+    @Column
     private String zipCode;
-
-    @NotNull
-    private Integer pesel;
-
+    @Column
+    private String pesel;
+    @Column
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Past
     private Date dateOfBirth;
-
+    @Column
     private Boolean dyslexia;
-
     @OneToMany
     @JoinTable(name = "grade", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "id"))
     private List<Grade> studentGrade;
@@ -65,11 +50,11 @@ public class Student implements Serializable {
 
     }
 
-    public Student(Integer id, String firstName, String lastName, String class2, String streetAdress, Integer houseNumber, String city, String zipCode, Integer pesel, Date dateOfBirth, Boolean dyslexia) {
+    public Student(Integer id, String firstName, String lastName, String className, String streetAdress, Integer houseNumber, String city, String zipCode, String pesel, Date dateOfBirth, Boolean dyslexia) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.className = class2;
+        this.className = className;
         this.streetAdress = streetAdress;
         this.houseNumber = houseNumber;
         this.city = city;
@@ -103,12 +88,12 @@ public class Student implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getClass2() {
+    public String getClassName() {
         return className;
     }
 
-    public void setClass2(String class2) {
-        this.className = class2;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public String getStreetAdress() {
@@ -143,11 +128,11 @@ public class Student implements Serializable {
         this.zipCode = zipCode;
     }
 
-    public Integer getPesel() {
+    public String getPesel() {
         return pesel;
     }
 
-    public void setPesel(Integer pesel) {
+    public void setPesel(String pesel) {
         this.pesel = pesel;
     }
 

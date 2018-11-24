@@ -33,6 +33,6 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public void delete(Grade grade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gradeRepository.delete(grade);
     }
 }

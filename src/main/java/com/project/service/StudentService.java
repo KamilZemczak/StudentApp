@@ -6,7 +6,5 @@ public interface StudentService {
 
     Student create(Student student);
 
-    Student update(Student student);
-
     void delete(Student student);
 }

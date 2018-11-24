@@ -1,8 +1,11 @@
 package com.project.searcher;
 
 import com.project.model.Student;
+import java.util.List;
 
 public interface StudentSearcher {
 
-    Student findByUsername(String username);
+    List<Student> findAll();
+
+    Student findOne(Integer id);
 }
