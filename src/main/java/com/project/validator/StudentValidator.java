@@ -6,7 +6,6 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.project.model.Student;
-import org.apache.commons.lang3.StringUtils;
 
 @Component
 public class StudentValidator implements Validator {
@@ -36,7 +35,7 @@ public class StudentValidator implements Validator {
             errors.rejectValue("lastName", "Student.lastName.format");
         }
 
-        if (student.getClassName().length() < 2 || student.getClassName().length() > 32) {
+        if (student.getClassName().length() < 1 || student.getClassName().length() > 2) {
             errors.rejectValue("className", "Student.className.size");
         }
 

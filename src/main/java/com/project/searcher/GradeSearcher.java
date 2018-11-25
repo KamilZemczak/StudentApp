@@ -1,8 +1,9 @@
 package com.project.searcher;
 
+import java.util.List;
+
 import com.project.model.Grade;
 import com.project.model.Student;
-import java.util.List;
 
 public interface GradeSearcher {
 

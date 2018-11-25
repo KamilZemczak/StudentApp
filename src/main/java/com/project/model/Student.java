@@ -1,6 +1,5 @@
 package com.project.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +12,6 @@ import javax.persistence.Temporal;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 
 @Entity(name = "student")
 public class Student implements Serializable {

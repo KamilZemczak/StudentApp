@@ -1,11 +1,11 @@
 package com.project.service;
 
-import com.project.dao.GradeRepository;
-import com.project.dao.StudentRepository;
-import com.project.model.Grade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.dao.GradeRepository;
+import com.project.dao.StudentRepository;
+import com.project.model.Grade;
 import com.project.model.Student;
 
 @Service

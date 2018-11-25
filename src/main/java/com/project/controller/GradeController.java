@@ -69,8 +69,6 @@ public class GradeController {
     public String delete(@RequestParam int id, HttpServletRequest request) {
         Grade grade = gradeSearcher.findOne(id);
         gradeService.delete(grade);
-        request.setAttribute("student", studentSearcher.findAll());
-        request.setAttribute("mode", "MODE_HOME");
-        return "index";
+        return "redirect:/";
     }
 }

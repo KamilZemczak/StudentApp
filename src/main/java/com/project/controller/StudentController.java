@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,6 @@ import com.project.model.Student;
 import com.project.searcher.StudentSearcher;
 import com.project.service.StudentService;
 import com.project.validator.StudentValidator;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class StudentController {
@@ -50,8 +50,6 @@ public class StudentController {
     public String delete(@RequestParam int id, HttpServletRequest request) {
         Student student = studentSearcher.findOne(id);
         studentService.delete(student);
-        request.setAttribute("student", studentSearcher.findAll());
-        request.setAttribute("mode", "MODE_HOME");
-        return "index";
+        return "redirect:/";
     }
 }
