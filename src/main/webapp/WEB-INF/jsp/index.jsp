@@ -228,8 +228,7 @@
             </c:when>
             <c:when test="${mode == 'SHOW_GRADE'}">
                 <div class="container text-center" id="homeDiv">
-                    <h3>ALL STUDENTS</h3>
-                    <h3>You show oceny od ${user.firstName} ${user.lastName} </h3>
+                    <h3>You are viewing grades from: <strong>${student.firstName} ${student.lastName}</strong></h3>
                     <hr>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered text-left">

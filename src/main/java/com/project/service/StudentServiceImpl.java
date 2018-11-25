@@ -11,13 +11,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     StudentRepository studentRepository;
-    
+
     @Override
     public Student create(Student student) {
-         return createNew(student);
+        return createNew(student);
     }
-    
-    private Student createNew(final Student student) {    
+
+    private Student createNew(final Student student) {
         final Student result = new Student();
         result.setFirstName(student.getFirstName());
         result.setLastName(student.getLastName());
@@ -29,9 +29,10 @@ public class StudentServiceImpl implements StudentService {
         result.setPesel(student.getPesel());
         result.setDateOfBirth(student.getDateOfBirth());
         result.setDyslexia(student.getDyslexia());
-        return studentRepository.save(result);
+        studentRepository.save(result);
+        return result;
     }
-    
+
     @Override
     public void delete(Student student) {
         studentRepository.delete(student);

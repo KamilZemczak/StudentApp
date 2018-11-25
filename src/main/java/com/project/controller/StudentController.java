@@ -42,11 +42,8 @@ public class StudentController {
             request.setAttribute("mode", "ADD_STUDENT");
             return "index";
         }
-
         studentService.create(student);
-        request.setAttribute("student", studentSearcher.findAll());
-        request.setAttribute("mode", "MODE_HOME");
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/delete-student", method = RequestMethod.GET)

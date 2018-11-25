@@ -43,17 +43,15 @@ public class GradeController {
 
     @RequestMapping(value = "/add-grade", method = RequestMethod.POST)
     public String add(@ModelAttribute("grade") Grade grade, @RequestParam("student_id") Integer id, Model model, HttpServletRequest request, BindingResult bindingResult) {
-        Student student = studentSearcher.findOne(id);
-
         gradeValidator.validate(grade, bindingResult);
         if (bindingResult.hasErrors()) {
             request.setAttribute("mode", "ADD_GRADE");
             return "index";
         }
-
+        Student student = studentSearcher.findOne(id);
         gradeService.create(grade, id);
         model.addAttribute("grade", gradeSearcher.findByStudent(student));
-        request.setAttribute("student", student);
+        model.addAttribute("student", student);
         request.setAttribute("mode", "SHOW_GRADE");
         return "index";
     }
@@ -62,7 +60,7 @@ public class GradeController {
     public String show(@RequestParam int id, Model model, HttpServletRequest request) {
         Student student = studentSearcher.findOne(id);
         model.addAttribute("grade", gradeSearcher.findByStudent(student));
-        request.setAttribute("student", student);
+        model.addAttribute("student", student);
         request.setAttribute("mode", "SHOW_GRADE");
         return "index";
     }

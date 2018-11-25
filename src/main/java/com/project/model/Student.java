@@ -21,26 +21,16 @@ public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column
     private String firstName;
-    @Column
     private String lastName;
-    @Column
     private String className;
-    @Column
     private String streetAdress;
-    @Column
-    private Integer houseNumber;
-    @Column
+    private String houseNumber;
     private String city;
-    @Column
     private String zipCode;
-    @Column
     private String pesel;
-    @Column
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
-    @Column
     private Boolean dyslexia;
     @OneToMany
     @JoinTable(name = "grade", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "id"))
@@ -50,7 +40,7 @@ public class Student implements Serializable {
 
     }
 
-    public Student(Integer id, String firstName, String lastName, String className, String streetAdress, Integer houseNumber, String city, String zipCode, String pesel, Date dateOfBirth, Boolean dyslexia) {
+    public Student(Integer id, String firstName, String lastName, String className, String streetAdress, String houseNumber, String city, String zipCode, String pesel, Date dateOfBirth, Boolean dyslexia) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -104,11 +94,11 @@ public class Student implements Serializable {
         this.streetAdress = streetAdress;
     }
 
-    public Integer getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(Integer houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 

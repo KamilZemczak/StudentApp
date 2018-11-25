@@ -19,6 +19,10 @@ public class GradeValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Grade grade = (Grade) o;
+        
+        if (grade.getSubject().length() < 3 || grade.getSubject().length() > 32) {
+            errors.rejectValue("subject", "Grade.subject.size");
+        }
 
         required(errors);
 
@@ -28,5 +32,4 @@ public class GradeValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "subject", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "value", "NotEmpty");
     }
-
 }

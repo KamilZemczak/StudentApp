@@ -8,7 +8,6 @@ import java.util.List;
 import com.project.dao.StudentRepository;
 import com.project.model.Student;
 
-
 @Service
 public class StudentSearcherImpl implements StudentSearcher {
 
@@ -24,5 +23,4 @@ public class StudentSearcherImpl implements StudentSearcher {
     public Student findOne(Integer id) {
         return studentRepository.findOne(id);
     }
-
 }

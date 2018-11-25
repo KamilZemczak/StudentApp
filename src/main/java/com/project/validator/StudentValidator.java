@@ -15,9 +15,7 @@ public class StudentValidator implements Validator {
     public boolean supports(Class<?> aClass) {
         return Student.class.equals(aClass);
     }
-
-    //todo: zaczynanie się od dużych liter
-    //todo: numer ulicy musi być numeryczny
+       
     @Override
     public void validate(Object o, Errors errors) {
         Student student = (Student) o;
@@ -25,41 +23,37 @@ public class StudentValidator implements Validator {
         required(errors);
 
         if (student.getFirstName().length() < 3 || student.getFirstName().length() > 32) {
-            errors.rejectValue("firstName", "Size.student");
+            errors.rejectValue("firstName", "Student.firstName.size");
         }
         if (!student.getFirstName().matches("[A-Z][a-zA-Z]*")) {
-            errors.rejectValue("firstName", "Format.student");
+            errors.rejectValue("firstName", "Student.firstName.format");
         }
 
         if (student.getLastName().length() < 3 || student.getLastName().length() > 32) {
-            errors.rejectValue("lastName", "Size.student");
+            errors.rejectValue("lastName", "Student.lastName.size");
         }
         if (!student.getLastName().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
-            errors.rejectValue("lastName", "Format.student");
+            errors.rejectValue("lastName", "Student.lastName.format");
         }
 
         if (student.getClassName().length() < 2 || student.getClassName().length() > 32) {
-            errors.rejectValue("className", "Size.student");
+            errors.rejectValue("className", "Student.className.size");
         }
 
         if (student.getStreetAdress().length() < 2 || student.getStreetAdress().length() > 32) {
-            errors.rejectValue("streetAdress", "Size.student");
-        }
-
-        if (!StringUtils.isNumeric(String.valueOf((student.getHouseNumber())))) {
-            errors.rejectValue("lastName", "Format.student");
+            errors.rejectValue("streetAdress", "Student.streetAdress.size");
         }
 
         if (student.getCity().length() < 2 || student.getCity().length() > 32) {
-            errors.rejectValue("city", "Format.student");
+            errors.rejectValue("city", "Student.city.Size");
         }
 
-        if (student.getZipCode().matches("\\d{2}-\\d{3}")) {
-            errors.rejectValue("zipCode", "Format.student");
+        if (!student.getZipCode().matches("\\d{2}-\\d{3}")) {
+            errors.rejectValue("zipCode", "Student.zipCode.Format");
         }
 
         if (!isValidPESEL(student.getPesel())) {
-            errors.rejectValue("pesel", "Format.student");
+            errors.rejectValue("pesel", "Student.pesel.Format");
         }
     }
 

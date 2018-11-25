@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface GradeSearcher {
 
-     List<Grade> findByStudent(Student student);
-     
-      Grade findOne(Integer id);
+    List<Grade> findByStudent(Student student);
+
+    Grade findOne(Integer id);
 }

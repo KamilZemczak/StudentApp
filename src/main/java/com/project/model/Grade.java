@@ -20,9 +20,7 @@ public class Grade implements Serializable {
     @OneToOne
     @JoinColumn(name = "student_id")
     private Student student;
-    @Column
     private String subject;
-    @Column
     private BigDecimal value;
 
     public Grade() {
