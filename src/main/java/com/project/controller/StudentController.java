@@ -47,7 +47,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/delete-student", method = RequestMethod.GET)
-    public String delete(@RequestParam int id, HttpServletRequest request) {
+    public String delete(@RequestParam int id) {
         Student student = studentSearcher.findOne(id);
         studentService.delete(student);
         return "redirect:/";

@@ -7,11 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Temporal;
 
 @Entity(name = "student")
 public class Student implements Serializable {

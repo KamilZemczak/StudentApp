@@ -1,4 +1,4 @@
-package com.project;
+package com.project.service;
 
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
@@ -12,7 +12,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.project.dao.GradeRepository;
 import com.project.model.Grade;
-import com.project.service.GradeServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GradeService_deleteTest {

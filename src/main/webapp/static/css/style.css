@@ -1,7 +1,8 @@
-.invisible-at-first {
-    display: none;
+#save {
+    margin-bottom: 30px;
 }
 
-.navbar-text {
-    border-top: 0px;
+.center-block {
+    padding-top: 10px;
 }
+

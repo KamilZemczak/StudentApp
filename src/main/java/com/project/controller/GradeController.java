@@ -43,12 +43,13 @@ public class GradeController {
 
     @RequestMapping(value = "/add-grade", method = RequestMethod.POST)
     public String add(@ModelAttribute("grade") Grade grade, @RequestParam("student_id") Integer id, Model model, HttpServletRequest request, BindingResult bindingResult) {
+        Student student = studentSearcher.findOne(id);
         gradeValidator.validate(grade, bindingResult);
         if (bindingResult.hasErrors()) {
             request.setAttribute("mode", "ADD_GRADE");
+            model.addAttribute("student", student);
             return "index";
         }
-        Student student = studentSearcher.findOne(id);
         gradeService.create(grade, id);
         model.addAttribute("grade", gradeSearcher.findByStudent(student));
         model.addAttribute("student", student);

@@ -1,22 +1,25 @@
-package com.project;
+package com.project.validator;
 
-import com.project.model.Grade;
-import com.project.validator.GradeValidator;
-import java.math.BigDecimal;
-import org.apache.commons.lang3.RandomStringUtils;
 import static org.mockito.Mockito.reset;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
+import org.springframework.validation.Errors;
+
+import java.math.BigDecimal;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import static org.mockito.Matchers.anyString;
 import org.mockito.Mock;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.validation.Errors;
+
+import com.project.model.Grade;
+import com.project.ValidatorTest;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GradeValidator_validateTest {
@@ -28,7 +31,7 @@ public class GradeValidator_validateTest {
     private Errors errors;
 
     private final ValidatorTest validatorTest = new ValidatorTest();
-    
+
     private final String subject = RandomStringUtils.randomAlphabetic(6);
 
     @After

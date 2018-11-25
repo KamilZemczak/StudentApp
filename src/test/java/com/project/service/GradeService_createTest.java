@@ -1,4 +1,4 @@
-package com.project;
+package com.project.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -21,7 +21,6 @@ import com.project.dao.GradeRepository;
 import com.project.dao.StudentRepository;
 import com.project.model.Grade;
 import com.project.model.Student;
-import com.project.service.GradeServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GradeService_createTest {

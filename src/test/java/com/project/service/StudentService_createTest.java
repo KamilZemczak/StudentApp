@@ -1,4 +1,4 @@
-package com.project;
+package com.project.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,7 +23,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.project.dao.StudentRepository;
 import com.project.model.Student;
-import com.project.service.StudentServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StudentService_createTest {
@@ -46,7 +45,7 @@ public class StudentService_createTest {
     private final String houseNumber = RandomStringUtils.randomAlphabetic(6);
     private final String city = RandomStringUtils.randomAlphabetic(6);
     private final String zipCode = RandomStringUtils.randomAlphabetic(6);
-    private final String pesel = RandomStringUtils.randomAlphabetic(6);
+    private final String pesel = "90090515836";
     private final Date dateOfBirth = stringToDate("28/09/1995");
     private final Boolean dyslexia = RandomUtils.nextBoolean();
 
@@ -85,6 +84,16 @@ public class StudentService_createTest {
         assertEquals(dateOfBirth, result.getDateOfBirth());
         assertEquals(dyslexia, result.getDyslexia());
         verify(studentRepository).save(result);
+    }
+
+    @Test
+    public void getDateByPesel_correct() {
+        final String pesel = "90090515836";
+        final Date date = stringToDate("05/09/1990");
+        when(student.getPesel()).thenReturn(pesel);
+        when(student.getDateOfBirth()).thenReturn(date);
+        final Student result = testedService.create(student);
+        assertEquals(date, result.getDateOfBirth());
     }
 
     private static Date stringToDate(final String value, final SimpleDateFormat formatter) {

@@ -1,25 +1,32 @@
-package com.project;
+package com.project.validator;
 
-import com.project.model.Student;
-import com.project.validator.StudentValidator;
+import com.project.ValidatorTest;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Matchers.anyString;
+
+import org.springframework.validation.Errors;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-import static org.mockito.Mockito.reset;
 
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import static org.mockito.Matchers.anyString;
 import org.mockito.Mock;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.validation.Errors;
+
+import com.project.dao.StudentRepository;
+import com.project.model.Student;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class StudentValidator_validateTest {
@@ -29,6 +36,9 @@ public class StudentValidator_validateTest {
 
     @Mock
     private Errors errors;
+
+    @Mock
+    private StudentRepository studentRepository;
 
     private final ValidatorTest validatorTest = new ValidatorTest();
 
@@ -51,23 +61,14 @@ public class StudentValidator_validateTest {
     }
 
     @Test
-    public void corretData_addErrors() {
+    public void corretData_validate() {
         final Student student = spy(Student.class);
         when(errors.getFieldValue(anyString())).thenReturn(mock(Object.class));
-        when(student.getFirstName()).thenReturn(firstName);
-        when(student.getLastName()).thenReturn(lastName);
-        when(student.getClassName()).thenReturn(className);
-        when(student.getStreetAdress()).thenReturn(streetAdress);
-        when(student.getHouseNumber()).thenReturn(houseNumber);
-        when(student.getCity()).thenReturn(city);
-        when(student.getZipCode()).thenReturn(zipCode);
-        when(student.getPesel()).thenReturn(pesel);
-        when(student.getDateOfBirth()).thenReturn(dateOfBirth);
-        when(student.getDyslexia()).thenReturn(dyslexia);
+        prepareData(student);
         testedValidator.validate(student, errors);
         validatorTest.validateNeverRejectValue(errors);
     }
-    
+
     @Test
     public void emptyData_validate() {
         final Student student = spy(Student.class);
@@ -94,6 +95,60 @@ public class StudentValidator_validateTest {
         validatorTest.validateRejectIfEmptyOrWhitespace(errors, "dyslexia", "NotEmpty");
     }
 
+    @Test
+    public void invalidData_validate() {
+        final Student student = spy(Student.class);
+        prepareData(student);
+        when(student.getFirstName()).thenReturn("jan");
+        when(student.getLastName()).thenReturn("kowalski");
+        when(student.getZipCode()).thenReturn("84-8000");
+        when(student.getPesel()).thenReturn("242444");
+        testedValidator.validate(student, errors);
+        validatorTest.validateRejectValue(errors, "firstName", "Student.firstName.format");
+        validatorTest.validateRejectValue(errors, "lastName", "Student.lastName.format");
+        validatorTest.validateRejectValue(errors, "pesel", "Student.pesel.format");
+        validatorTest.validateRejectValue(errors, "zipCode", "Student.zipCode.format");
+    }
+
+    @Test
+    public void wrongSize_validate() {
+        final Student student = spy(Student.class);
+        prepareData(student);
+        when(student.getFirstName()).thenReturn("Az");
+        when(student.getLastName()).thenReturn("Zz");
+        when(student.getClassName()).thenReturn("13223");
+        when(student.getStreetAdress()).thenReturn("A");
+        when(student.getCity()).thenReturn("B");
+        testedValidator.validate(student, errors);
+        validatorTest.validateRejectValue(errors, "firstName", "Student.firstName.size");
+        validatorTest.validateRejectValue(errors, "lastName", "Student.lastName.size");
+        validatorTest.validateRejectValue(errors, "className", "Student.className.size");
+        validatorTest.validateRejectValue(errors, "streetAdress", "Student.streetAdress.size");
+        validatorTest.validateRejectValue(errors, "city", "Student.city.size");
+    }
+
+    @Test
+    public void nonUniquePesel_validate() {
+        final Student student = spy(Student.class);
+        prepareData(student);
+        doReturn(student).when(studentRepository).findByPesel(pesel);
+        testedValidator.validate(student, errors);
+        validatorTest.validateRejectValue(errors, "pesel", "Student.pesel.duplicate");
+    }
+
+    private void prepareData(final Student student) {
+        when(student.getFirstName()).thenReturn(firstName);
+        when(student.getLastName()).thenReturn(lastName);
+        when(student.getClassName()).thenReturn(className);
+        when(student.getStreetAdress()).thenReturn(streetAdress);
+        when(student.getHouseNumber()).thenReturn(houseNumber);
+        when(student.getCity()).thenReturn(city);
+        when(student.getZipCode()).thenReturn(zipCode);
+        when(student.getPesel()).thenReturn(pesel);
+        when(student.getDateOfBirth()).thenReturn(dateOfBirth);
+        when(student.getDyslexia()).thenReturn(dyslexia);
+    }
+
     private static Date stringToDate(final String value, final SimpleDateFormat formatter) {
         try {
             return formatter.parse(value);
@@ -106,5 +161,4 @@ public class StudentValidator_validateTest {
         final SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
         return stringToDate(value, formatter);
     }
-
 }

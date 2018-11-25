@@ -1,37 +1,46 @@
 package com.project.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.project.model.Student;
+import com.project.dao.StudentRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 @Component
 public class StudentValidator implements Validator {
+
+    @Autowired
+    StudentRepository studentRepository;
 
     @Override
     public boolean supports(Class<?> aClass) {
         return Student.class.equals(aClass);
     }
-       
+
     @Override
     public void validate(Object o, Errors errors) {
         Student student = (Student) o;
-
         required(errors);
 
         if (student.getFirstName().length() < 3 || student.getFirstName().length() > 32) {
             errors.rejectValue("firstName", "Student.firstName.size");
         }
-        if (!student.getFirstName().matches("[A-Z][a-zA-Z]*")) {
+
+        if (!student.getFirstName().matches("[A-Z][\\w]+( [A-Z][\\w]+)?")) {
             errors.rejectValue("firstName", "Student.firstName.format");
         }
 
         if (student.getLastName().length() < 3 || student.getLastName().length() > 32) {
             errors.rejectValue("lastName", "Student.lastName.size");
         }
-        if (!student.getLastName().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
+        if (!student.getLastName().matches("[A-Z][\\w]+(-[A-Z][\\w]+)?")) {
             errors.rejectValue("lastName", "Student.lastName.format");
         }
 
@@ -44,15 +53,19 @@ public class StudentValidator implements Validator {
         }
 
         if (student.getCity().length() < 2 || student.getCity().length() > 32) {
-            errors.rejectValue("city", "Student.city.Size");
+            errors.rejectValue("city", "Student.city.size");
         }
 
         if (!student.getZipCode().matches("\\d{2}-\\d{3}")) {
-            errors.rejectValue("zipCode", "Student.zipCode.Format");
+            errors.rejectValue("zipCode", "Student.zipCode.format");
         }
 
         if (!isValidPESEL(student.getPesel())) {
-            errors.rejectValue("pesel", "Student.pesel.Format");
+            errors.rejectValue("pesel", "Student.pesel.format");
+        }
+
+        if (!duplicate(student.getPesel())) {
+            errors.rejectValue("pesel", "Student.pesel.duplicate");
         }
     }
 
@@ -65,7 +78,6 @@ public class StudentValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "city", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "zipCode", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pesel", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateOfBirth", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dyslexia", "NotEmpty");
     }
 
@@ -88,4 +100,9 @@ public class StudentValidator implements Validator {
         }
         return (control == csum);
     }
+
+    private boolean duplicate(String pesel) {
+        return (studentRepository.findByPesel(pesel) == null);
+    }
+
 }

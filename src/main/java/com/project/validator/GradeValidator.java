@@ -5,8 +5,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.project.model.Grade;
 import java.math.BigDecimal;
+
+import com.project.model.Grade;
 
 @Component
 public class GradeValidator implements Validator {
@@ -20,8 +21,8 @@ public class GradeValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Grade grade = (Grade) o;
         required(errors);
-        
-        if (!isCorrectGrade(grade.getValue())) {
+             
+        if (grade.getValue() != null && !isCorrectGrade(grade.getValue())) {
             errors.rejectValue("value", "Grade.value.format");
         }
     }

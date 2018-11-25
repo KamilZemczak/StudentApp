@@ -1,4 +1,4 @@
-package com.project;
+package com.project.searcher;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.reset;
@@ -15,9 +15,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import com.project.dao.StudentRepository;
-import com.project.model.Grade;
 import com.project.model.Student;
-import com.project.searcher.StudentSearcherImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StudentSearcher_search {
