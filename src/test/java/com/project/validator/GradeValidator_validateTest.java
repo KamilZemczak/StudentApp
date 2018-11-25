@@ -57,6 +57,15 @@ public class GradeValidator_validateTest {
         testedValidator.validate(grade, errors);
         validatorTest.validateRejectValue(errors, "value", "Grade.value.format");
     }
+    
+    @Test
+    public void wrongSubjectValue_validate() {
+        final Grade grade = spy(Grade.class);
+        when(grade.getValue()).thenReturn(new BigDecimal(5));
+        when(grade.getSubject()).thenReturn("2435352");
+        testedValidator.validate(grade, errors);
+        validatorTest.validateRejectValue(errors, "subject", "Grade.subject.format");
+    }
 
     @Test
     public void wrongGradeValueAndEmptySubject_validate() {
