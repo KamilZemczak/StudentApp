@@ -40,6 +40,7 @@ public class StudentValidator implements Validator {
         if (student.getLastName().length() < 3 || student.getLastName().length() > 32) {
             errors.rejectValue("lastName", "Student.lastName.size");
         }
+
         if (!student.getLastName().matches("[A-Z][\\w]+(-[A-Z][\\w]+)?")) {
             errors.rejectValue("lastName", "Student.lastName.format");
         }
@@ -52,8 +53,16 @@ public class StudentValidator implements Validator {
             errors.rejectValue("streetAdress", "Student.streetAdress.size");
         }
 
+        if (!student.getStreetAdress().matches("[A-Z][\\w]+([ -][A-Z][\\w]+)?")) {
+            errors.rejectValue("streetAdress", "Student.streetAdress.format");
+        }
+
         if (student.getCity().length() < 2 || student.getCity().length() > 32) {
             errors.rejectValue("city", "Student.city.size");
+        }
+
+        if (!student.getCity().matches("[A-Z][\\w]+([ -][A-Z][\\w]+)?")) {
+            errors.rejectValue("city", "Student.city.format");
         }
 
         if (!student.getZipCode().matches("\\d{2}-\\d{3}")) {

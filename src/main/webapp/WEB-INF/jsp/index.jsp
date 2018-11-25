@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                         </spring:bind>
-                        
+
                         <div class="form-group">
                             <label class="control-label col-md-3">Dyslexia:</label>
                             <div class="col-md-7">
@@ -195,10 +195,21 @@
 
                             <spring:bind path="value">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 center-form">Value:</label>
+                                    <label for="sell">Value (select one):</label>
                                     <div class="col-md-7 ${status.error ? 'has-error' : ''}">
-                                        <form:input path="value" type="text" class="form-control" name="value" id="value" value="${grade.value}"/>
                                         <form:errors class="text-danger" path="value"/>
+                                        <select class="form-control" id="sel1" name="value" id="value" value="${grade.value}">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>2.5</option>
+                                            <option>3.0</option>
+                                            <option>3.5</option>
+                                            <option>4.0</option>
+                                            <option>4.5</option>
+                                            <option>5.0</option>
+                                            <option>5.5</option>
+                                            <option>6.0</option>
+                                        </select>
                                     </div>
                                 </div>
                             </spring:bind>

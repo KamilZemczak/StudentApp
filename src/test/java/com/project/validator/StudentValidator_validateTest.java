@@ -27,7 +27,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.project.dao.StudentRepository;
 import com.project.model.Student;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class StudentValidator_validateTest {
 
@@ -91,7 +90,6 @@ public class StudentValidator_validateTest {
         validatorTest.validateRejectIfEmptyOrWhitespace(errors, "city", "NotEmpty");
         validatorTest.validateRejectIfEmptyOrWhitespace(errors, "zipCode", "NotEmpty");
         validatorTest.validateRejectIfEmptyOrWhitespace(errors, "pesel", "NotEmpty");
-        validatorTest.validateRejectIfEmptyOrWhitespace(errors, "dateOfBirth", "NotEmpty");
         validatorTest.validateRejectIfEmptyOrWhitespace(errors, "dyslexia", "NotEmpty");
     }
 
@@ -101,11 +99,15 @@ public class StudentValidator_validateTest {
         prepareData(student);
         when(student.getFirstName()).thenReturn("jan");
         when(student.getLastName()).thenReturn("kowalski");
+        when(student.getStreetAdress()).thenReturn("a1");
+        when(student.getCity()).thenReturn("21");
         when(student.getZipCode()).thenReturn("84-8000");
         when(student.getPesel()).thenReturn("242444");
         testedValidator.validate(student, errors);
         validatorTest.validateRejectValue(errors, "firstName", "Student.firstName.format");
         validatorTest.validateRejectValue(errors, "lastName", "Student.lastName.format");
+        validatorTest.validateRejectValue(errors, "streetAdress", "Student.streetAdress.format");
+        validatorTest.validateRejectValue(errors, "city", "Student.city.format");
         validatorTest.validateRejectValue(errors, "pesel", "Student.pesel.format");
         validatorTest.validateRejectValue(errors, "zipCode", "Student.zipCode.format");
     }
