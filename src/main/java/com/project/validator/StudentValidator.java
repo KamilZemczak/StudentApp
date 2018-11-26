@@ -8,10 +8,6 @@ import org.springframework.validation.Validator;
 
 import com.project.model.Student;
 import com.project.dao.StudentRepository;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import org.apache.commons.lang3.time.DateFormatUtils;
 
 @Component
 public class StudentValidator implements Validator {
