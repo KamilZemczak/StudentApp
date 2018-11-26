@@ -35,7 +35,7 @@ public class StudentValidator_validateTest {
     @InjectMocks
     private final StudentValidator testedValidator = spy(StudentValidator.class);
 
-    @Spy
+    @Mock
     private Student student;
 
     @Mock

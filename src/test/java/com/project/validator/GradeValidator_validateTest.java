@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.project.model.Grade;
@@ -28,7 +27,7 @@ public class GradeValidator_validateTest {
     @InjectMocks
     private final GradeValidator testedValidator = spy(GradeValidator.class);
 
-    @Spy
+    @Mock
     private Grade grade;
 
     @Mock
