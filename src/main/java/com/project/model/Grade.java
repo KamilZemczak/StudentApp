@@ -2,6 +2,7 @@ package com.project.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class Grade implements Serializable {
     @JoinColumn(name = "student_id")
     private Student student;
     private String subject;
+    @Column(name = "value", precision = 6, scale = 1)
     private BigDecimal value;
 
     public Grade() {

@@ -21,11 +21,11 @@ public class GradeValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Grade grade = (Grade) o;
         required(errors);
-        
+
         if (!grade.getSubject().matches("^[A-Z].*")) {
             errors.rejectValue("subject", "Grade.subject.format");
         }
-        
+
         if (grade.getValue() != null && !isCorrectGrade(grade.getValue())) {
             errors.rejectValue("value", "Grade.value.format");
         }

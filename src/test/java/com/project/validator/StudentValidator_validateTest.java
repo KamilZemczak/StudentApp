@@ -18,10 +18,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.project.dao.StudentRepository;
@@ -32,6 +34,9 @@ public class StudentValidator_validateTest {
 
     @InjectMocks
     private final StudentValidator testedValidator = spy(StudentValidator.class);
+
+    @Spy
+    private Student student;
 
     @Mock
     private Errors errors;
@@ -54,6 +59,20 @@ public class StudentValidator_validateTest {
     private final Date dateOfBirth = stringToDate("28/09/1995");
     private final Boolean dyslexia = RandomUtils.nextBoolean();
 
+    @Before
+    public void setUp() {
+        when(student.getFirstName()).thenReturn(firstName);
+        when(student.getLastName()).thenReturn(lastName);
+        when(student.getClassName()).thenReturn(className);
+        when(student.getStreetAdress()).thenReturn(streetAdress);
+        when(student.getHouseNumber()).thenReturn(houseNumber);
+        when(student.getCity()).thenReturn(city);
+        when(student.getZipCode()).thenReturn(zipCode);
+        when(student.getPesel()).thenReturn(pesel);
+        when(student.getDateOfBirth()).thenReturn(dateOfBirth);
+        when(student.getDyslexia()).thenReturn(dyslexia);
+    }
+
     @After
     public void clean() {
         reset(testedValidator, errors);
@@ -61,16 +80,13 @@ public class StudentValidator_validateTest {
 
     @Test
     public void corretData_validate() {
-        final Student student = spy(Student.class);
         when(errors.getFieldValue(anyString())).thenReturn(mock(Object.class));
-        prepareData(student);
         testedValidator.validate(student, errors);
         validatorTest.validateNeverRejectValue(errors);
     }
 
     @Test
     public void emptyData_validate() {
-        final Student student = spy(Student.class);
         when(student.getFirstName()).thenReturn("");
         when(student.getLastName()).thenReturn("");
         when(student.getClassName()).thenReturn("");
@@ -95,8 +111,6 @@ public class StudentValidator_validateTest {
 
     @Test
     public void invalidData_validate() {
-        final Student student = spy(Student.class);
-        prepareData(student);
         when(student.getFirstName()).thenReturn("jan");
         when(student.getLastName()).thenReturn("kowalski");
         when(student.getStreetAdress()).thenReturn("a1");
@@ -114,8 +128,6 @@ public class StudentValidator_validateTest {
 
     @Test
     public void wrongSize_validate() {
-        final Student student = spy(Student.class);
-        prepareData(student);
         when(student.getFirstName()).thenReturn("Az");
         when(student.getLastName()).thenReturn("Zz");
         when(student.getClassName()).thenReturn("13223");
@@ -131,24 +143,9 @@ public class StudentValidator_validateTest {
 
     @Test
     public void nonUniquePesel_validate() {
-        final Student student = spy(Student.class);
-        prepareData(student);
         doReturn(student).when(studentRepository).findByPesel(pesel);
         testedValidator.validate(student, errors);
         validatorTest.validateRejectValue(errors, "pesel", "Student.pesel.duplicate");
-    }
-
-    private void prepareData(final Student student) {
-        when(student.getFirstName()).thenReturn(firstName);
-        when(student.getLastName()).thenReturn(lastName);
-        when(student.getClassName()).thenReturn(className);
-        when(student.getStreetAdress()).thenReturn(streetAdress);
-        when(student.getHouseNumber()).thenReturn(houseNumber);
-        when(student.getCity()).thenReturn(city);
-        when(student.getZipCode()).thenReturn(zipCode);
-        when(student.getPesel()).thenReturn(pesel);
-        when(student.getDateOfBirth()).thenReturn(dateOfBirth);
-        when(student.getDyslexia()).thenReturn(dyslexia);
     }
 
     private static Date stringToDate(final String value, final SimpleDateFormat formatter) {

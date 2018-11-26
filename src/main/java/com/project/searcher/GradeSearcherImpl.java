@@ -16,6 +16,11 @@ public class GradeSearcherImpl implements GradeSearcher {
     GradeRepository gradeRepository;
 
     @Override
+    public List<Grade> findAll() {
+        return gradeRepository.findAll();
+    }
+
+    @Override
     public List<Grade> findByStudent(Student student) {
         return gradeRepository.findByStudent(student);
     }

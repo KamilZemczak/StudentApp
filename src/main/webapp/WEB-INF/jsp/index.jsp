@@ -184,7 +184,7 @@
                         <input type="hidden" name="student_id" value="${student.id}"/>
                         <div class="row">
                             <spring:bind path="subject">
-                                <div class="form-group">
+                                <div class="form-group col-md-4 col-md-offset-2">
                                     <label class="control-label col-md-3 center-form">Subject:</label>
                                     <div class="col-md-7 ${status.error ? 'has-error' : ''}">
                                         <form:input path="subject" type="text" class="form-control" name="subject" id="subject" value="${grade.subject}"/>
@@ -192,13 +192,12 @@
                                     </div>
                                 </div>
                             </spring:bind>
-
                             <spring:bind path="value">
-                                <div class="form-group">
-                                    <label for="sell">Value (select one):</label>
+                                <div class="form-group col-md-4">
+                                    <label class="col-md-3 center-form" for="sell">Value:</label>
                                     <div class="col-md-7 ${status.error ? 'has-error' : ''}">
                                         <form:errors class="text-danger" path="value"/>
-                                        <select class="form-control" id="sel1" name="value" id="value" value="${grade.value}">
+                                        <select class="form-control grade-form" id="sel1" name="value" id="value" value="${grade.value}">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>2.5</option>

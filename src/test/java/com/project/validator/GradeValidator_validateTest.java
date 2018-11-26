@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.project.model.Grade;
@@ -26,6 +27,9 @@ public class GradeValidator_validateTest {
 
     @InjectMocks
     private final GradeValidator testedValidator = spy(GradeValidator.class);
+
+    @Spy
+    private Grade grade;
 
     @Mock
     private Errors errors;
@@ -41,7 +45,6 @@ public class GradeValidator_validateTest {
 
     @Test
     public void correctData_validate() {
-        final Grade grade = spy(Grade.class);
         when(grade.getValue()).thenReturn(new BigDecimal(6.0));
         when(grade.getSubject()).thenReturn(subject);
         when(errors.getFieldValue(anyString())).thenReturn(mock(Object.class));
@@ -51,16 +54,14 @@ public class GradeValidator_validateTest {
 
     @Test
     public void wrongGradeValue_validate() {
-        final Grade grade = spy(Grade.class);
         when(grade.getValue()).thenReturn(new BigDecimal(7));
         when(grade.getSubject()).thenReturn(subject);
         testedValidator.validate(grade, errors);
         validatorTest.validateRejectValue(errors, "value", "Grade.value.format");
     }
-    
+
     @Test
     public void wrongSubjectValue_validate() {
-        final Grade grade = spy(Grade.class);
         when(grade.getValue()).thenReturn(new BigDecimal(5));
         when(grade.getSubject()).thenReturn("2435352");
         testedValidator.validate(grade, errors);
@@ -69,7 +70,6 @@ public class GradeValidator_validateTest {
 
     @Test
     public void wrongGradeValueAndEmptySubject_validate() {
-        final Grade grade = spy(Grade.class);
         when(grade.getValue()).thenReturn(new BigDecimal(3.7));
         when(grade.getSubject()).thenReturn("");
         testedValidator.validate(grade, errors);
@@ -79,7 +79,6 @@ public class GradeValidator_validateTest {
 
     @Test
     public void emptyGradeValueAndSubject_validate() {
-        final Grade grade = spy(Grade.class);
         when(grade.getValue()).thenReturn(new BigDecimal(0));
         when(grade.getSubject()).thenReturn("");
         testedValidator.validate(grade, errors);

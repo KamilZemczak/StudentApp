@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-@SpringBootApplication(scanBasePackages={"project.service","project.fissst.controller"})
+@SpringBootApplication(scanBasePackages = {"project.service", "project.fissst.controller"})
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

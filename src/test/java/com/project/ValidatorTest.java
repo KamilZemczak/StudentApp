@@ -12,7 +12,7 @@ public class ValidatorTest {
     public void validateRejectIfEmptyOrWhitespace(final Errors errors, final String field, final String errorCode) {
         verify(errors).rejectValue(field, errorCode, null, null);
     }
-  
+
     public void validateRejectValue(final Errors errors, final String field, final String errorCode) {
         verify(errors).rejectValue(field, errorCode);
     }

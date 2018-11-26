@@ -1,5 +1,7 @@
 package com.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,11 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Temporal;
 
 @Entity(name = "student")
 public class Student implements Serializable {
@@ -32,13 +34,14 @@ public class Student implements Serializable {
     private Boolean dyslexia;
     @OneToMany
     @JoinTable(name = "grade", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    @JsonIgnore
     private List<Grade> studentGrade;
 
     public Student() {
 
     }
 
-    public Student(Integer id, String firstName, String lastName, String className, String streetAdress, String houseNumber, String city, String zipCode, String pesel, Date dateOfBirth, Boolean dyslexia) {
+    public Student(Integer id, String firstName, String lastName, String className, String streetAdress, String houseNumber, String city, String zipCode, String pesel, Date dateOfBirth, Boolean dyslexia, List<Grade> studentGrade) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +53,7 @@ public class Student implements Serializable {
         this.pesel = pesel;
         this.dateOfBirth = dateOfBirth;
         this.dyslexia = dyslexia;
+        this.studentGrade = studentGrade;
     }
 
     public Integer getId() {
